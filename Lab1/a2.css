@@ -1,0 +1,24 @@
+*{
+    background-color: rgb(189, 167, 167) ;
+}
+.starch{
+    background-color: green;
+    padding: 5px;
+}
+.starch sub{
+    background-color: green;
+}
+img{
+    border: 2px solid black;
+    background-color: white;
+}
+ul{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    background-color: yellow;
+}

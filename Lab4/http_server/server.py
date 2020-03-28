@@ -3,6 +3,8 @@ import mimetypes
 import socket
 import html
 import sys
+import json
+import os
 
 # Port number
 PORT = 8080
@@ -37,27 +39,37 @@ def process_request(connection, address, port):
     :param address: the address (IP) of the remote socket
     :param port: the port number of the remote socket
     """
-
     # Make reading from a socket like reading/writing from a file
     # Use binary mode, so we can read and write binary data. However,
     # this also means that we have to decode (and encode) data (preferably
     # to utf-8) when reading (and writing) text
     client = connection.makefile("wrb")
-
-    # Read one line, decode it to utf-8 and strip leading and trailing spaces
-    requestHeader = client.readline().decode("utf-8").strip()
-    newline=client.readline().decode("utf-8").strip()
-    while newline:
-        newline=client.readline().decode("utf-8").strip()
-        print(newline)
-
-    request = requestHeader.upper()
-    req_header_split=request.split()
-    print(req_header_split)
-
-    # Write the response to the socket
-    #client.write(response.encode("utf-8"))
-
+    #Reading first line and adding to the list
+    line=client.readline().decode("utf-8").strip()
+    request=[]
+    request.append(line)
+    #Reading all request lines and adding them all to list
+    while line:
+        line=client.readline().decode("utf-8").strip()
+        request.append(line)
+    print(request)
+    #checks if request is not empty(sometimes it randomly connected with empty request)
+    if (request==['']):
+        client.close()
+        print("empty")
+        return
+    header=request[0].split()
+    #Check the header what path it provides and if request type is GET
+    if(header[0] == "GET" and os.path.isfile("."+header[1])
+     and not header[1].endswith(".py")):    #not allowing user to access python script files
+        #Reads the requested file and returns 200 response code and content
+        f=open("."+header[1], "r", encoding="cp437")    #Got error before that couldnt read symbol from file(even with UTF8 encoding), now ok
+        contents=f.read()
+        full_response=HEADER_RESPONSE_200+contents
+        client.write(full_response.encode("utf-8"))
+    else: 
+        #Wrong request type or resource not found
+        client.write(RESPONSE_404.encode("utf-8"))
     # Closes file-like object
     client.close()
 
