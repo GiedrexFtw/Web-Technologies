@@ -14,12 +14,12 @@ $(document).ready(function() {
     else{
         //rendering the accordion elements to display reviews
         formlist.forEach(form => {
-            console.log(form);
             $("#reviews")
             .append(
             `<button class="accordion">${form.title}</button>
             <div class="panel">
               <p>${form.review}</p>
+              <p>Distance from Ljubljana to this destination: ~${form.distance.toFixed(2)}km</p>
               </br>
               <p>~${form.name}</p>
             </div>`

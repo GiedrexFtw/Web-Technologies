@@ -12,6 +12,7 @@ window.addEventListener("scroll", function(){
     mountain.style.top=valY * 0.25 + "px";
     name.style.top=valY*0.5+"px";
 })
+
 showPosition();
 function showPosition() {
     if(navigator.geolocation) {
@@ -49,7 +50,9 @@ function showPosition() {
             sumkm=sumkm+distance;
         })
         let distancemsg=document.createElement("p");
-        distancemsg.textContent=`Total distance covered from current spot in Ljubljana to other travel destinations(in km): ${sumkm.toFixed(2)}`;
+        distancemsg.style.fontSize="36px";
+        distancemsg.style.alignContent="center";
+        distancemsg.textContent=`Total distance covered from current spot in Ljubljana to other travel destinations: ~${sumkm.toFixed(2)}km`;
         document.body.appendChild(distancemsg);
     }
   }

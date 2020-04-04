@@ -5,6 +5,7 @@ let submit=document.getElementById("submit");
 
     submit.addEventListener("click", function(){
         let position=JSON.parse(localStorage.getItem("position"));
+        let distance=JSON.parse(localStorage.getItem("distance"));
         //console.log(position);
         let correct=true;
         if(position==null){
@@ -44,13 +45,15 @@ let submit=document.getElementById("submit");
                 title:title.value,
                 name: name.value,
                 review: textfield.value,
-                position: position
+                position: position,
+                distance: distance
             }
             console.log(form);
             formList.push(form);
             let formListString=JSON.stringify(formList);
             localStorage.setItem("formList", formListString);
             localStorage.removeItem("position");
+            localStorage.removeItem("distance");
             title.value="";
             name.value="";
             textfield.value="";

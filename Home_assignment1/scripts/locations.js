@@ -26,18 +26,32 @@ function showMap(position) {
       let confirmation=confirm("Are you sure this is the correct location of the trip destination?");
       //checking if not empty or cancelled
       if(confirmation==true){
-        placeMarkerAndPanTo(e.latLng, map);
+        placeMarkerAndPanTo(e.latLng, map, marker);
         google.maps.event.removeListener(listener);
       }
   });
 }
-function placeMarkerAndPanTo(latLng, map) {
-  var marker = new google.maps.Marker({
+function haversine_distance(mk1, mk2) {
+  var R = 6371.0710; // Radius of the Earth in miles
+  var rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
+  var rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+  var difflat = rlat2-rlat1; // Radian difference (latitudes)
+  var difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+  var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*
+  Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+  return d;
+}
+function placeMarkerAndPanTo(latLng, map, marker) {//
+  var newmarker = new google.maps.Marker({
     position: latLng,
     map: map
   });
-  let positionString=JSON.stringify(marker.position);
+  let line = new google.maps.Polyline({path: [marker.position, newmarker.position], map: map});//
+  let distance = haversine_distance(newmarker, marker);
+  let positionString=JSON.stringify(newmarker.position);//
   localStorage.setItem("position", positionString);
+  let distanceString=JSON.stringify(distance);
+  localStorage.setItem("distance", distanceString);
   //console.log(positionString);
   map.panTo(latLng);
 }
