@@ -38,12 +38,30 @@ function showPosition() {
     var map = new google.maps.Map(document.getElementById("embedMap"), myOptions);
     var marker = new google.maps.Marker({ position:latlong, map:map, title:"You are here!" });
     let formlist=JSON.parse(localStorage.getItem("formList"));
-    console.log(formlist);
+    //console.log(formlist);
+    let sumkm=0;
     if(formlist!=null){
+        
         formlist.forEach(form => {
             let newmarker=new google.maps.Marker({position:form.position, map:map, title:form.title});
+            let line = new google.maps.Polyline({path: [marker.position, newmarker.position], map: map});
+            let distance = haversine_distance(newmarker, marker);
+            sumkm=sumkm+distance;
         })
+        let distancemsg=document.createElement("p");
+        distancemsg.textContent=`Total distance covered from current spot in Ljubljana to other travel destinations(in km): ${sumkm.toFixed(2)}`;
+        document.body.appendChild(distancemsg);
     }
+  }
+  function haversine_distance(mk1, mk2) {
+    var R = 6371.0710; // Radius of the Earth in miles
+    var rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
+    var rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+    var difflat = rlat2-rlat1; // Radian difference (latitudes)
+    var difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+    var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*
+    Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+    return d;
   }
   // Define callback function for failed attempt
   function showError(error) {
