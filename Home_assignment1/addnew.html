@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slovenia - Gallery</title>
+    <link rel="stylesheet" href="styles/navigation.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" href="styles/form.css">
+    <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+</head>
+<body>
+    <div class="topnav">
+        <a href="index.html">HOME</a>
+        <a href="reviews.html">REVIEWS</a>
+        <a class="active" href="addnew.html">ADD NEW REVIEW</a>
+        <a href="references.html">REFERENCES</a>
+    </div>
+    
+    <form>
+        <h1>Please fill the fields below to submit the trip review</h1>
+        <p ></p>
+        <input id="title" name="title" type="text" class="feedback-input" placeholder="*Title of the trip" />   
+        <input name="name" id="name" type="text" class="feedback-input" placeholder="*Name of the reviewer" />
+        <textarea name="text" id="text" class="feedback-input" placeholder="Write your review here." spellcheck="true"></textarea>
+        <p>*Please choose a place you have been to by pressing once on the map</p>
+        <button type="button" style="color:black" onclick="showPosition();">Open maps</button>
+        <div id="embedMap" style="width: 500px; height: 300px;">
+            <!--Google map will be embedded here-->
+        </div>
+        <br>
+        <input id="submit" name="submit" type="button" value="SUBMIT"/>
+        <p>* - Mandatory fields</p>
+      </form>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <script src="scripts/locations.js"></script>
+      <script src="scripts/verification.js"></script>
+</body>
+</html>
