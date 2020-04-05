@@ -13,7 +13,6 @@ PORT = 8080
 # Return this header (+ content) when the request can be
 # successfully fulfilled
 HEADER_RESPONSE_200 = """HTTP/1.1 200 OK\r
-Content-Type: %s\r
 Content-Length: %d\r
 Connection: Close\r
 \r
