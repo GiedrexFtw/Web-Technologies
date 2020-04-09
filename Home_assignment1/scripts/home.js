@@ -49,11 +49,15 @@ function showPosition() {
             let distance = haversine_distance(newmarker, marker);
             sumkm=sumkm+distance;
         })
-        let distancemsg=document.createElement("p");
-        distancemsg.style.fontSize="36px";
-        distancemsg.style.alignContent="center";
+        //let distancemsg=document.createElement("p");
+        //distancemsg.style.fontSize="36px";
+        //distancemsg.style.alignContent="center";
+        //distancemsg.className="item5";
+        document.getElementById("distancemsg");
         distancemsg.textContent=`Total distance covered from current spot in Ljubljana to other travel destinations: ~${sumkm.toFixed(2)}km`;
-        document.body.appendChild(distancemsg);
+        distancemsg.style.color="Coral";
+        distancemsg.style.fontSize="36px";
+        //document.body.appendChild(distancemsg);
     }
   }
   function haversine_distance(mk1, mk2) {

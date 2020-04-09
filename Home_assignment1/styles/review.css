@@ -18,6 +18,9 @@
   p{
       color: black;
   }
+  p i{
+    color:black;
+  }
   
   .active, .accordion:hover {
     background-color: #ccc;
@@ -39,3 +42,21 @@
   .active:after {
     content: "\2796"; 
   }
+  .sort-button{
+    color: #444;
+    width: 50%;
+  }
+  #addmsg{
+    color:white;
+    position: relative;
+    font-size: 40px;
+  }
+  #message{
+    height:200px;
+  }
+  @media only screen and (min-width: 992px) {
+    /* For pc: */
+.topnav a{
+    float: left;
+}
+}

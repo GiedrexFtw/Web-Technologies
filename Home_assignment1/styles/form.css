@@ -46,3 +46,9 @@ textarea {
   font-weight:700;
 }
 #submit:hover { background:#CC4949; }
+@media only screen and (min-width: 992px) {
+  /* For pc: */
+.topnav a{
+  float: left;
+}
+}
